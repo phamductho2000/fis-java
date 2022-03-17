@@ -1,0 +1,11 @@
+package fis.java.banking;
+
+public class Application {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ReadExcel r = new ReadExcel();
+		r.read("lich-su-giao-dich.xlsx");
+	}
+
+}

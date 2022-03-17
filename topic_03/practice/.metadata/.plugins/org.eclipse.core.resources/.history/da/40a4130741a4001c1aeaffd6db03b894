@@ -1,0 +1,5 @@
+package fis.java.jdbc.connect;
+
+public class ConnectionUtils {
+
+}
