@@ -1,0 +1,5 @@
+package fis.java.topic01.ex1;
+
+public interface ISortStrategy {
+	void sort(Comparable[] data, int count);
+}

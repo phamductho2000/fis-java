@@ -1,0 +1,22 @@
+package fis.java.topic01.ex2;
+
+public abstract class Ticket {
+	
+	private int ticketNumber;
+	
+
+	public Ticket(int ticketNumber) {
+		super();
+		this.ticketNumber = ticketNumber;
+	}
+
+	public int getTicketCode() {
+		return ticketNumber;
+	}
+
+	public void setTicketNumber(int ticketNumber) {
+		this.ticketNumber = ticketNumber;
+	}
+	
+
+}

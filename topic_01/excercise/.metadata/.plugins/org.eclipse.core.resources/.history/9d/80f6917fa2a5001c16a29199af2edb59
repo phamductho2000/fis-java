@@ -1,0 +1,11 @@
+package fis.java.topic01.ex1;
+
+public class DecimalValidation implements IValidation{
+
+	@Override
+	public boolean validate(String data) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

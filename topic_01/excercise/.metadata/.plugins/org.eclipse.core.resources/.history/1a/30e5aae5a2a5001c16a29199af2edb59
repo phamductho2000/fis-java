@@ -1,0 +1,5 @@
+package fis.java.topic01.ex3;
+
+public enum EnumWeather {
+	FLOOD, STORM, RAIN, SHOWER, DRIZZLE, CLOUDY;
+}

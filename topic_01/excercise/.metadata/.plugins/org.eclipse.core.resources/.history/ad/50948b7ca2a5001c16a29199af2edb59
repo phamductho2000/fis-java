@@ -1,0 +1,13 @@
+package fis.java.topic01.ex1;
+
+public class DateValidation implements IValidation {
+
+	String format;
+	
+	@Override
+	public boolean validate(String data) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

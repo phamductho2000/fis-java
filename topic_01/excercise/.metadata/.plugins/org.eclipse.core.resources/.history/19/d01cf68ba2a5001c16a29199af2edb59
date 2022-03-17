@@ -1,0 +1,6 @@
+package fis.java.topic01.ex1;
+
+public interface IValidation {
+	
+	boolean validate(String data);
+}
