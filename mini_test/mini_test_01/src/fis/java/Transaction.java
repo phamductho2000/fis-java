@@ -3,6 +3,7 @@ package fis.java;
 import java.util.Date;
 
 public class Transaction {
+	private static long genericId = 0;
 	private long id;
 	private Date transactionDate;
 	private long fromAccount;
@@ -12,10 +13,10 @@ public class Transaction {
 	private String content;
 	private String errorReason;
 	
-	public Transaction(long id, Date transactionDate, long fromAccount, long toAccount, double amount, int status,
+	public Transaction(Date transactionDate, long fromAccount, long toAccount, double amount, int status,
 			String content, String errorReason) {
 		super();
-		this.id = id;
+		this.id = ++genericId;
 		this.transactionDate = transactionDate;
 		this.fromAccount = fromAccount;
 		this.toAccount = toAccount;
@@ -87,6 +88,13 @@ public class Transaction {
 
 	public void setErrorReason(String errorReason) {
 		this.errorReason = errorReason;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", transactionDate=" + transactionDate + ", fromAccount=" + fromAccount
+				+ ", toAccount=" + toAccount + ", amount=" + amount + ", status=" + status + ", content=" + content
+				+ ", errorReason=" + errorReason + "]/n";
 	}
 	
 	

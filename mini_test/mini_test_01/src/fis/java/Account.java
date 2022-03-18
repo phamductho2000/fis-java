@@ -1,13 +1,15 @@
 package fis.java;
 
-public class Account {
+import java.util.Objects;
+
+public class Account implements Cloneable {
 	private static long genericId = 0;
 	private long id;
 	private String accountNumber;
 	private String accountName;
 	private double balance;
 	private int status;
-	
+
 	public Account(String accountNumber, String accountName, double balance, int status) {
 		super();
 		this.id = ++genericId;
@@ -56,7 +58,31 @@ public class Account {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
-}
 
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", accountNumber=" + accountNumber + ", accountName=" + accountName + ", balance="
+				+ balance + ", status=" + status + "]/n";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountNumber, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Account other = (Account) obj;
+		return Objects.equals(accountNumber, other.accountNumber) && id == other.id;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+    }
+}

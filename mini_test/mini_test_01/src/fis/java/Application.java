@@ -1,22 +1,27 @@
 package fis.java;
 
+import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
+		DataTest dt = new DataTest();
+		runThread();
 		menu();
 	}
 
 	public static void menu() {
-		System.out.println("===== Há»† THá»�NG QUáº¢N LÃ� TÃ€I KHOáº¢N =====");
-		System.out.println(" 1. Danh Sach Tai Khoan");
-		System.out.println(" 2. Them Moi Tai Khoan");
-		System.out.println(" 3. Cap Nhat Thong Tin Tai Khoan");
-		System.out.println(" 4. Xoa Tai Khoan");
-		System.out.println(" 5.	Chuyen Khoan");
-		System.out.println(" 6. Exit");
+		System.out.println("===== HỆ THỐNG QUẢN LÝ TÀI KHOẢN =====");
+		System.out.println(" 1.Danh Sach Tai Khoan");
+		System.out.println(" 2.Them Moi Tai Khoan");
+		System.out.println(" 3.Cap Nhat Thong Tin Tai Khoan");
+		System.out.println(" 4 Xoa Tai Khoan");
+		System.out.println(" 5.Chuyen Khoan");
+		System.out.println(" 6.Exit");
 		System.out.println("Chon : ");
 		AccountManagement accountManagement = new AccountManagement();
 		Scanner sc = new Scanner(System.in);
@@ -115,7 +120,7 @@ public class Application {
 	public static void removeAccountById(AccountManagement accountManagement) {
 		Scanner sc = new Scanner(System.in);
 		long id = inputAccountId();
-		
+
 		System.out.println("Ban co chac chan muon xoa tai khoan co id la " + id);
 		System.out.println("Y/N ? ");
 		String ch = sc.nextLine();
@@ -133,6 +138,8 @@ public class Application {
 
 	public static void makeTransaction(AccountManagement accountManagement) {
 		Scanner sc = new Scanner(System.in);
+		TransactionManagement transactionManagement = new TransactionManagement();
+
 		System.out.println("Tu STK : ");
 		String fromAccountNumber = sc.nextLine();
 		System.out.println("Den STK : ");
@@ -144,21 +151,34 @@ public class Application {
 		System.out.println("Ban co chac chan muon thuc hien giao dich ?");
 		System.out.println("Y/N ? ");
 		String ch = sc.nextLine();
-		if (!Validation.checkStatus1FromAccountNumber(fromAccountNumber)) {
-			System.out.println("Loi : Tai khoan nguon phai co trang thai hieu luc");
-		}
-		else if(!Validation.checkStatus1FromAccountNumber(toAccountNumber)) {
-			System.out.println("Loi : Tai khoan dich phai co trang thai hieu luc");
-		}
-		else if(accountManagement.getBalanceByAccountNumber(fromAccountNumber) <= amount) {
-			System.out.println("So du tai khoan nguoi gui phai co so du lon hon hoac bang so tien giao dich");
-		}
-		else {
-			if(accountManagement.makeTransaction(fromAccountNumber, toAccountNumber, amount)) {
-				System.out.println("Giao dich thanh cong");
-				menu();
+
+		// Chon Y thi thuc hien giao dich
+		if (ch.toUpperCase().equals("Y")) {
+			if (!Validation.checkStatus1FromAccountNumber(fromAccountNumber)) {
+				String err = "Loi : Tai khoan nguon phai co trang thai hieu luc";
+				System.out.println(err);
+				transactionManagement.addTransaction(new Transaction(new Date(), Long.valueOf(fromAccountNumber),
+						Long.valueOf(toAccountNumber), amount, 0, content, err));
+			} else if (!Validation.checkStatus1FromAccountNumber(toAccountNumber)) {
+				String err = "Loi : Tai khoan dich phai co trang thai hieu luc";
+				System.out.println(err);
+				transactionManagement.addTransaction(new Transaction(new Date(), Long.valueOf(fromAccountNumber),
+						Long.valueOf(toAccountNumber), amount, 0, content, err));
+			} else if (accountManagement.getBalanceByAccountNumber(fromAccountNumber) <= amount) {
+				String err = "So du tai khoan nguoi gui phai co so du lon hon hoac bang so tien giao dich";
+				System.out.println(err);
+				transactionManagement.addTransaction(new Transaction(new Date(), Long.valueOf(fromAccountNumber),
+						Long.valueOf(toAccountNumber), amount, 0, content, err));
+			} else {
+				if (accountManagement.makeTransaction(fromAccountNumber, toAccountNumber, amount)) {
+					System.out.println("Giao dich thanh cong");
+					transactionManagement.addTransaction(new Transaction(new Date(), Long.valueOf(fromAccountNumber),
+							Long.valueOf(toAccountNumber), amount, 1, content, ""));
+					menu();
+				}
 			}
-			
+		} else {
+			menu();
 		}
 	}
 
@@ -217,5 +237,11 @@ public class Application {
 				return id;
 			}
 		}
+	}
+
+	public static void runThread() {
+		ExecutorService executor = Executors.newFixedThreadPool(1);
+		Runnable worker = new NotificationThread();
+		executor.execute(worker);
 	}
 }
