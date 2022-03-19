@@ -20,8 +20,18 @@ public class PhieuDangKyHocPhan {
     //Cau 2 : Mot phieu dang ky hoc phan duoc xem la hop le
     // khi cac mon hoc do sinh vien chon hoc deu hop le.
     public boolean laHopLe(){
+    	int count = 0;
         //TODO
-    	
-        return false;
+    	for(MonHoc mh : dsMonHoc) {
+    		if(sv.coTheDangKyHoc(mh)) {
+    			count++;
+    		}
+    	}
+        return count == dsMonHoc.size();
     }
+
+	public List<MonHoc> getDsMonHoc() {
+		return dsMonHoc;
+	}
+    
 }
