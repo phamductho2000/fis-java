@@ -21,13 +21,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadExcel {
 
+	public static List<TransactionHistory> transactionHistories = new ArrayList<TransactionHistory>();
+
 	public static final int COLUMN_INDEX_DATE = 1;
 	public static final int COLUMN_INDEX_AMOUNT = 2;
 	public static final int COLUMN_INDEX_BALANCE = 3;
 	public static final int COLUMN_INDEX_DETAIL = 4;
 
-	public List<TransactionHistory> read(String excelFilePath) throws IOException {
-		List<TransactionHistory> transactionHistories = new ArrayList<TransactionHistory>();
+	public void read(String excelFilePath) throws IOException {
 		// Get file
 		InputStream inputStream = new FileInputStream(new File(excelFilePath));
 
@@ -41,60 +42,54 @@ public class ReadExcel {
 		Iterator<Row> iterator = sheet.iterator();
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
-//			if (nextRow.getRowNum() == 0) {
-//				// Ignore header
-//				continue;
-//			}
-
-			if (nextRow.getRowNum() > 12) {
-				// Get all cells
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-
-				// Read cells and set value for book object
-				TransactionHistory transactionHistory = new TransactionHistory();
-				while (cellIterator.hasNext()) {
-					// Read cell
-					Cell cell = cellIterator.next();
-					Object cellValue = getCellValue(cell);
-					if (cellValue == null || cellValue.toString().isEmpty()) {
-						continue;
-					}
-					// Set value for object
-					int columnIndex = cell.getColumnIndex();
-					switch (columnIndex) {
-					case COLUMN_INDEX_DATE:
-						SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
-						try {
-							transactionHistory.setDate(formatter.parse(getCellValue(cell).toString()));
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						break;
-					case COLUMN_INDEX_AMOUNT:
-						transactionHistory.setAmount(Double.valueOf(getCellValue(cell).toString().replace(",", "")));
-						break;
-					case COLUMN_INDEX_BALANCE:
-						transactionHistory.setBalance(Double.valueOf(getCellValue(cell).toString().replace(",", "").replace("VND", "").trim()));
-						break;
-					case COLUMN_INDEX_DETAIL:
-						transactionHistory.setDetail(getCellValue(cell).toString());
-						break;
-					default:
-						break;
-					}
-
-				}
-//				System.out.println(transactionHistory);
-				transactionHistories.add(transactionHistory);
+			if (nextRow.getRowNum() == 0) {
+				// Ignore header
+				continue;
 			}
 
-		}
+			// Get all cells
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
 
+			// Read cells and set value for book object
+			TransactionHistory transactionHistory = new TransactionHistory();
+			while (cellIterator.hasNext()) {
+				// Read cell
+				Cell cell = cellIterator.next();
+				Object cellValue = getCellValue(cell);
+				if (cellValue == null || cellValue.toString().isEmpty()) {
+					continue;
+				}
+				// Set value for object
+				int columnIndex = cell.getColumnIndex();
+				switch (columnIndex) {
+				case COLUMN_INDEX_DATE:
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+					try {
+						transactionHistory.setDate(formatter.parse(getCellValue(cell).toString()));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				case COLUMN_INDEX_AMOUNT:
+					transactionHistory.setAmount(Double.valueOf(getCellValue(cell).toString().replace(",", "")));
+					break;
+				case COLUMN_INDEX_BALANCE:
+					transactionHistory.setBalance(
+							Double.valueOf(getCellValue(cell).toString().replace(",", "").replace("VND", "").trim()));
+					break;
+				case COLUMN_INDEX_DETAIL:
+					transactionHistory.setAccountNumber(getAccountNumberFromDetail(getCellValue(cell).toString()));
+					transactionHistory.setDetail(getCellValue(cell).toString());
+					break;
+				default:
+					break;
+				}
+			}
+			transactionHistories.add(transactionHistory);
+		}
 		workbook.close();
 		inputStream.close();
-
-		return transactionHistories;
 
 	}
 
@@ -140,5 +135,18 @@ public class ReadExcel {
 		}
 
 		return cellValue;
+	}
+
+	private static long getAccountNumberFromDetail(String detail) {
+		if (detail.startsWith("TKThe :")) {
+			int indexFrom = detail.indexOf(':');
+			int indexTo = detail.indexOf(',');
+			return Long.parseLong(detail.substring(indexFrom + 1, indexTo).trim());
+		} else if (detail.startsWith("Tfr Ac: ")) {
+			int indexFrom = detail.indexOf(':');
+			int indexTo = detail.indexOf(" ", detail.indexOf(':') + 2);
+			return Long.parseLong(detail.substring(indexFrom + 1, indexTo).trim());
+		}
+		return -1;
 	}
 }

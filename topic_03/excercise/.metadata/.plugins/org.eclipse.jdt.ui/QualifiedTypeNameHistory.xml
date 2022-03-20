@@ -15,10 +15,12 @@
     <fullyQualifiedTypeName name="org.apache.poi.hssf.usermodel.HSSFWorkbook"/>
     <fullyQualifiedTypeName name="javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec"/>
     <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFWorkbook"/>
-    <fullyQualifiedTypeName name="fis.java.banking.ReadExcel"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="fis.java.banking.TransactionHistory"/>
     <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Sheet"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="fis.java.banking.ReadExcel"/>
 </qualifiedTypeNameHistroy>
