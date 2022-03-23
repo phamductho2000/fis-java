@@ -1,0 +1,16 @@
+22 Mar 2022 20:11:05,947 {main} ERROR fis.training.DemoLog4j.LogToFile  - Example error message ..
+22 Mar 2022 20:11:05,950 {main} FATAL fis.training.DemoLog4j.LogToFile  - Example fatal message ..
+22 Mar 2022 20:11:05,951 {main} FATAL fis.training.DemoLog4j.LogToFile  - <Some Object>
+java.lang.Exception: Test Exception
+	at fis.training.DemoLog4j.LogToFile.raiseException(LogToFile.java:25)
+	at fis.training.DemoLog4j.LogToFile.main(LogToFile.java:18)
+22 Mar 2022 20:13:51,397 {main} ERROR fis.training.DemoLog4j.LogToFile  - Example error message ..
+22 Mar 2022 20:13:51,399 {main} FATAL fis.training.DemoLog4j.LogToFile  - Example fatal message ..
+22 Mar 2022 20:15:07,002 {main} INFO  fis.training.DemoLog4j.LogToFile  - Example info message ..
+22 Mar 2022 20:15:07,007 {main} WARN  fis.training.DemoLog4j.LogToFile  - Example warn message ..
+22 Mar 2022 20:15:07,007 {main} ERROR fis.training.DemoLog4j.LogToFile  - Example error message ..
+22 Mar 2022 20:15:07,007 {main} FATAL fis.training.DemoLog4j.LogToFile  - Example fatal message ..
+22 Mar 2022 21:12:29,099 {main} INFO  fis.training.DemoLog4j.LogToFile  - Example info message ..
+22 Mar 2022 21:12:29,102 {main} WARN  fis.training.DemoLog4j.LogToFile  - Example warn message ..
+22 Mar 2022 21:12:29,102 {main} ERROR fis.training.DemoLog4j.LogToFile  - Example error message ..
+22 Mar 2022 21:12:29,103 {main} FATAL fis.training.DemoLog4j.LogToFile  - Example fatal message ..

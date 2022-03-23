@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//src/fis/java/jdbc/connect/ConnectionUtils.java=UTF-8
 encoding//src/fis/java/jdbc/connect/MySQLConnUtils.java=UTF-8
 encoding//src/fis/java/jdbc/query/InsertDataExample.java=UTF-8
+encoding//src/fis/java/jdbc/query/PrepareStatementExample.java=UTF-8
 encoding//src/fis/java/jdbc/query/QueryDataExample.java=UTF-8
 encoding//src/fis/java/jdbc/query/ScrollableResultSetExample.java=UTF-8
