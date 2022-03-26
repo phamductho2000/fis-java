@@ -5,6 +5,7 @@ import static com.fis.java.constant.SystemConstant.*;
 
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.fis.java.entity.Transaction;
 import com.fis.java.exception.BankTransactionException;
 import com.fis.java.service.AccountService;
 import com.fis.java.service.TransactionService;
+import com.fis.java.validation.AccountValidation;
 
 @RestController
 @RequestMapping("/account")
@@ -33,11 +35,25 @@ public class AccountController {
 
 	@Autowired
 	TransactionService transactionService;
+	
+	@Autowired
+	AccountValidation accountValidation;
 
 	@PostMapping("/save")
 	public ResponseEntity<?> addAccount(@RequestBody Account account) {
+		if(!accountValidation.checkAccountNumberAccepted(account.getAccountNumber())) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STK phai la 12 ky tu va khong duoc trung");
+		}
+		if(!accountValidation.checkAccountNameAccepted(account.getAccountName())) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ten tai khoan phai > 5 va < 100 ky tu");
+		}
 		return ResponseEntity.ok(accountService.save(account));
 	}
+	
+//	@PostMapping("/update")
+//	public ResponseEntity<?> updateAccount(@RequestBody Account account) {
+//		return ResponseEntity.ok(accountService.save(account));
+//	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteAccount(@PathVariable Long id) {
