@@ -90,7 +90,7 @@ public class ReadExcel {
 		}
 		workbook.close();
 		inputStream.close();
-
+		TransactionManagement.setTransactionHistories(transactionHistories);
 	}
 
 	// Get Workbook
