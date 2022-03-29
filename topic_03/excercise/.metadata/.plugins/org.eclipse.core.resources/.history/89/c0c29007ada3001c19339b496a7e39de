@@ -1,9 +1,0 @@
-package fis.java.banking;
-
-import java.util.Date;
-
-public class TransactionHistory {
-	private long accountNumber;
-	private double balance;
-	private Date date;
-}

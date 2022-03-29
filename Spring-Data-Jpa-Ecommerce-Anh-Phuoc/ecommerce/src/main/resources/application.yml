@@ -1,0 +1,22 @@
+server.port: 8088
+# ===============================
+# DATABASE
+# ===============================
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fis_ecommerce
+    username: root
+    password: tho2022000@
+    hikari:
+      pool-name: training_pool
+      maximum-pool-size: 10
+      minimum-idle: 3
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
