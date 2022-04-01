@@ -17,9 +17,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductRepo productRepo;
-	
-	@Autowired
-	Logger log;
 
 	@Override
 	public ProductEntity save(ProductEntity productEntity) {

@@ -1176,3 +1176,4 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact stax:stax-api
 2022-03-28 13:53:11,497 [Stop Help Server] INFO  org.eclipse.jetty.server.Server - Stopped Server@2ce5eee4{STOPPING}[10.0.6,sto=0]
 2022-03-28 13:53:11,509 [Stop Help Server] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@3bb93953{HTTP/1.1, (http/1.1)}{127.0.0.1:0}
 2022-03-28 13:53:11,533 [Stop Help Server] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@10116f34{/help,null,STOPPED}
+2022-04-01 10:07:51,560 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

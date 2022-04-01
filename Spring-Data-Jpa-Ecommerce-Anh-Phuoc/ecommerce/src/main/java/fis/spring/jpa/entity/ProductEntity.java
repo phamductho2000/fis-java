@@ -1,5 +1,6 @@
 package fis.spring.jpa.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,6 @@ public class ProductEntity {
 	
 	private String des;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private CategoryEntity category;
 }
