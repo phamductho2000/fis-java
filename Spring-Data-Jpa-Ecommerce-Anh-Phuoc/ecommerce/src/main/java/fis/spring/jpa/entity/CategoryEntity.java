@@ -1,17 +1,20 @@
 package fis.spring.jpa.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-public class ProductEntity {
+@Getter
+@Setter
+public class CategoryEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +22,6 @@ public class ProductEntity {
 	
 	private String name;
 	
-	private double price;
-	
-	private String des;
-
-	@ManyToOne
-	private CategoryEntity category;
+	@OneToMany(mappedBy = "category")
+	private List<ProductEntity> products;
 }

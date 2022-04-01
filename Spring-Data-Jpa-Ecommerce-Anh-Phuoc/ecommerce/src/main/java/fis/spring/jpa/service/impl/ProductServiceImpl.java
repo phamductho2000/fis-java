@@ -3,10 +3,12 @@ package fis.spring.jpa.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fis.spring.jpa.entity.ProductEntity;
+import fis.spring.jpa.exception.NotFoundException;
 import fis.spring.jpa.repo.ProductRepo;
 import fis.spring.jpa.service.ProductService;
 
@@ -15,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductRepo productRepo;
+	
+	@Autowired
+	Logger log;
 
 	@Override
 	public ProductEntity save(ProductEntity productEntity) {
@@ -37,7 +42,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductEntity findById(Long id) {
 		Optional<ProductEntity> p = productRepo.findById(id);
-		return p.isPresent() ? p.get() : null;
+		if(!p.isPresent()) {
+			throw new NotFoundException("Not found user with ID = " + id);
+		}
+		return p.get();
 	}
 
 	@Override

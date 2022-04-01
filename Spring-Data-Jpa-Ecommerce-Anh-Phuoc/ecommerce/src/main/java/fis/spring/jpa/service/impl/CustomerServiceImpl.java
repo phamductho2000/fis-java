@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fis.spring.jpa.entity.CustomerEntity;
+import fis.spring.jpa.exception.NotFoundException;
 import fis.spring.jpa.repo.CustomerRepo;
 import fis.spring.jpa.service.CustomerService;
 
@@ -37,7 +38,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerEntity findById(Long id) {
 		Optional<CustomerEntity> c = customerRepo.findById(id);
-		return c.isPresent() ? c.get() : null;
+		if(!c.isPresent()) {
+			throw new NotFoundException("Not found customer with ID = " + id);
+		}
+		return c.get();
 	}
 
 	@Override

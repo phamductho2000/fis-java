@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fis.spring.jpa.entity.OrderDetailEntity;
 import fis.spring.jpa.entity.OrderEntity;
 import fis.spring.jpa.entity.ProductEntity;
+import fis.spring.jpa.exception.NotFoundException;
 import fis.spring.jpa.repo.OrderDetailRepo;
 import fis.spring.jpa.repo.OrderRepo;
 import fis.spring.jpa.service.OrderService;
@@ -46,7 +47,6 @@ public class OrderServiceImpl implements OrderService {
 			}
 			return savedO;
 		}
-
 	}
 
 	@Override
@@ -57,7 +57,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderEntity findById(Long id) {
 		Optional<OrderEntity> o = orderRepo.findById(id);
-		return o.isPresent() ? o.get() : null;
+		if(!o.isPresent()) {
+			throw new NotFoundException("Not found order with ID = " + id);
+		}
+		return o.get();
 	}
 
 	@Override
